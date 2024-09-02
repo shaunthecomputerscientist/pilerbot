@@ -6,6 +6,7 @@ import sqlite3
 from dotenv import load_dotenv
 load_dotenv()
 import os
+import server
 
 intents = discord.Intents.default()
 intents.messages = True
@@ -141,4 +142,5 @@ async def assign_role(member: discord.Member):
                         await member.remove_roles(role)
                         await member.send(f"Your {role_name} role has been removed as your points dropped below {threshold}.")
 
+# server.keep_alive()
 bot.run(os.environ.get('DISCORD_API_KEY'))

@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from threading import Thread
 
 app = Flask(__name__)
 
@@ -14,5 +15,11 @@ def interactions():
     print(f"Received interaction: {data}")
     return jsonify({"status": "success", "message": "Interaction received!"})
 
-if __name__ == '__main__':
+def run():
     app.run(host='0.0.0.0', port=5000)
+def keep_alive():
+    t=Thread(target=run)
+    t.start()
+
+# if __name__ == '__main__':
+#     app.run(host='0.0.0.0', port=5000)
