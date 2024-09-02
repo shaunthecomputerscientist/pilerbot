@@ -6,6 +6,7 @@ app = Flask(__name__)
 def home():
     return "Flask server is running!"
 
+
 @app.route('/api/interactions', methods=['POST'])
 def interactions():
     data = request.json
