@@ -27,16 +27,15 @@ def run_discord_bot():
     asyncio.run(main())
     logger.info("Discord bot stopped.")
 
-if __name__ == "__main__":
+def run_flask():
     # Get the port from environment variable or default to 5000
     port = int(os.environ.get("PORT", 5000))
     logger.info(f"Flask server is starting on port {port}")
-
-    # Start the Discord bot in a separate thread
-    discord_thread = Thread(target=run_discord_bot)
-    logger.info('Starting bot thread')
-    discord_thread.start()
-    logger.info('Bot thread started')
-
-    # Start the Flask WSGI app
     app.run(host='0.0.0.0', port=port)
+
+# Start the Discord bot in a separate thread
+flask_thread = Thread(target=run_flask)
+logger.info('Starting bot thread')
+flask_thread.start()
+logger.info('Bot thread started')
+run_discord_bot()
