@@ -261,15 +261,29 @@ class PilerBot(commands.Cog):
             return new_points, new_level
         return None
 
+
     @tasks.loop(hours=720)
     async def check_monthly_activity(self):
         c.execute("SELECT username, points, last_online FROM users;")
         users = c.fetchall()
         for username, points, last_online in users:
-            last_online_date = datetime.strptime(last_online, '%Y-%m-%d %H:%M:%S')
+            if not isinstance(last_online, str):
+                last_online = str(last_online)
+            try:
+                # Adjust the format to include fractional seconds
+                last_online_date = datetime.strptime(last_online, '%Y-%m-%d %H:%M:%S.%f')
+            except ValueError as e:
+                # Handle the case where the fractional seconds might not be present
+                try:
+                    last_online_date = datetime.strptime(last_online, '%Y-%m-%d %H:%M:%S')
+                except ValueError as e:
+                    print(f"Error parsing date for {username}: {e}")
+                    continue
+
             if points > 0 and (datetime.utcnow() - last_online_date).days >= 30:
                 new_points, new_level = self.update_user_points(username, -100)
-                print(f"{username} has been deducted 10 points. New points: {new_points}, New level: {new_level}")
+                print(f"{username} has been deducted 100 points. New points: {new_points}, New level: {new_level}")
+
 
     @commands.command(name="checklevels")
     async def check_levels(self, ctx, *members: discord.Member):
@@ -442,7 +456,7 @@ intents.message_content = True
 
 bot = commands.Bot(command_prefix="/", intents=intents)
 async def main():
-    logging.info("PILER BOT INITIALIZED")
+    print("PILER BOT INITIALIZED")
     await bot.add_cog(PilerBot(bot, tools = [wikipedia,arxiv,search_tool, Calculator,retriever_on_web_data,current_time] ))  # Await the add_cog call
-    logging.info("Calling PILER BOT")
+    print("Calling PILER BOT")
     await bot.start(os.getenv('DISCORD_API_KEY'))
