@@ -11,7 +11,7 @@ from langchain_core.prompts import ChatPromptTemplate, HumanMessagePromptTemplat
 from pilerbot.tools.tools import Vision_Model
 from pilerbot.langgraphworkflow import langgraph_agent,agent_utilities
 from pilerbot.tools.tools import wikipedia,arxiv,search_tool, Calculator,retriever_on_web_data,current_time
-
+import logging
 # Load environment variables from a .env file
 load_dotenv()
 
@@ -442,5 +442,7 @@ intents.message_content = True
 
 bot = commands.Bot(command_prefix="/", intents=intents)
 async def main():
+    logging.info("PILER BOT INITIALIZED")
     await bot.add_cog(PilerBot(bot, tools = [wikipedia,arxiv,search_tool, Calculator,retriever_on_web_data,current_time] ))  # Await the add_cog call
+    logging.info("Calling PILER BOT")
     await bot.start(os.getenv('DISCORD_API_KEY'))
