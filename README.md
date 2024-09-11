@@ -122,7 +122,7 @@ These commands are restricted to administrators and allow for points management 
 
 These commands are available to all users for checking points, levels, and last online times.
 
-- `/checklevels`
+- `/checklevels <list of members>`
   - Displays the user’s current points and level based on the following thresholds:
     - **Beginner**: 100 points
     - **Apprentice**: 1,000 points
@@ -134,7 +134,7 @@ These commands are available to all users for checking points, levels, and last 
     - **Grand Master**: 500,000,000 points
     - **Legendary**: 1,000,000,000 points
 
-- `/lastonline`
+- `/lastonline <member>`
   - Shows the user’s last recorded online time.
 
 - `/recentusers`
@@ -146,7 +146,7 @@ These commands are available to all users for checking points, levels, and last 
 - **Description:** Asks the Piler Agent for a response to a specific query.
 - **Usage:** `/askpileragent How do I reset my password?`
 
-### `/pileraskimage <prompt>`
+### `/pileraskimage <prompt> <attachment>`
 - **Description:** Sends an image prompt to the Piler Agent for analysis. Ensure the message includes an image attachment.
 - **Usage:** `/pileraskimage Describe the content of this image.`
 
