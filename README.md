@@ -1,7 +1,7 @@
 # PROJECT PILER
 
 ## pilerbot
-personal bot for managing a discord server based on piler (my ed tech community)
+personal Agent for managing a discord server based on piler (my ed tech community)
 
 ## About Piler
 
